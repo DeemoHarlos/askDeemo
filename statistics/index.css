@@ -1,0 +1,98 @@
+html *{
+	box-sizing: border-box;
+}
+body{
+	margin:0;
+	font-size: 8pt;
+	font-family: monospace,Noto Sans TC;
+	background-color: black;
+	color: white;
+}
+.flex{
+	display:flex;
+}
+.column{
+	flex-direction:column;
+}
+.row{
+	flex-direction:row;
+}
+
+#update{
+	flex: 0 0 auto;
+	background-color: black;
+	color: white;
+	padding: .5em;
+}
+#url{
+	flex: 1 0 0;
+	background-color: black;
+	color: white;
+	padding: .5em;
+}
+
+#check{
+	margin: .5em;
+}
+#check>*{
+	flex:1 0 0;
+	text-align: center;
+	margin: 0 .2em;
+	padding: .5em 0;
+	background-color: #555;
+}
+
+#table{
+	width: 100%;
+}
+#table>table{
+	/*table-layout: fixed;*/
+	width: 100%;
+	border-collapse: collapse;
+}
+#table th,#table td{
+	border: 1px solid #555;
+	padding: .5em;
+}
+
+#h-ip{
+	min-width: 10em;
+}
+#h-system{
+	min-width: 17em;
+}
+#h-platform{
+	min-width: 14em;
+}
+#h-other{
+	min-width: 9em;
+}
+#h-info{
+	min-width: 14em;
+}
+
+.uid{
+	text-align: right;
+}
+.time{
+	
+	text-align: center;
+}
+.ip{
+	text-align: center;
+}
+.ip>span{
+	display: inline-block;
+	text-align: right;
+	width: 1.8em;
+}
+.port{
+	text-align: right;
+}
+.moz{
+	text-align: center;
+}
+
+.hide,.chide,.phide{
+	display: none;
+}
