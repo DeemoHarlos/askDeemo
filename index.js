@@ -52,7 +52,7 @@ app.post('/',(req,res)=>{
 	newQuestion.content = req.body.content
 	newQuestion.userAgent = req.body.userAgent || 'unknown'
 	newQuestion.key = req.body.key || ''
-	if(bcrypt.compareSync(req.body.key,mykey))
+	if(req.body.key && bcrypt.compareSync(req.body.key,mykey))
 		return res.status(403).send('Unavailable key.')
 	log.printLog('info',newQuestion)
 	newQuestion.save((err, question)=>{
@@ -80,17 +80,19 @@ app.post('/ans',(req,res)=>{
 })
 
 app.get('/',(req,res)=>{
-	if (bcrypt.compareSync(req.body.key,mykey)){	
-		Question.find({}, function (err, question) {
-			if (err) return res.status(403).send(err)
-			res.status(200).json(question)
-		})
-	}
-	else if (req.body.key){
-		Question.find({key:req.body.key}, function (err, question) {
-			if (err) return res.status(403).send(err)
-			res.status(200).json(question)
-		})
+	if (req.body.key){
+		if (bcrypt.compareSync(req.body.key,mykey)){	
+			Question.find({}, function (err, question) {
+				if (err) return res.status(403).send(err)
+				return res.status(200).json(question)
+			})
+		}
+		else {
+			Question.find({key:req.body.key}, function (err, question) {
+				if (err) return res.status(403).send(err)
+				res.status(200).json(question)
+			})
+		}
 	}
 	else return res.status(404).send('Not found.')
 })
