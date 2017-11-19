@@ -45,9 +45,9 @@ app.use((req,res,next)=>{
 
 app.post('/',(req,res)=>{
 	var newQuestion = new Question()
-	if(!req.body.ip) return res.status(403).send('IP not found.')
+	if(!req.ip) return res.status(403).send('IP not found.')
 	if(!req.body.content || !req.body.content.length) return res.status(403).send('No content.')
-	newQuestion.ip = req.body.ip
+	newQuestion.ip = req.ip
 	newQuestion.time = new Date(Date.now())
 	newQuestion.content = req.body.content
 	newQuestion.userAgent = req.body.userAgent || 'unknown'
