@@ -21,7 +21,7 @@ var questionSchema = new Schema({
 	ansTime: {type: Date},
 	userAgent: {type: String}
 })
-var Question = mongoose.model('Visitor', questionSchema)
+var Question = mongoose.model('Question', questionSchema)
 
 log.printLog('info','Connecting to database ...')
 mongoose.connect(database, function (err, res) {
