@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "pad": "1.2.1",
-    "colors": "latest",
-    "minimist": "latest",
-    "express": "latest",
+    "bcrypt": "^1.0.3",
     "body-parser": "latest",
-    "mongoose": "latest"
+    "colors": "latest",
+    "express": "latest",
+    "minimist": "latest",
+    "mongoose": "latest",
+    "pad": "1.2.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -56,26 +56,13 @@ body{
 }
 
 #h-ip{
-	min-width: 10em;
-}
-#h-system{
-	min-width: 17em;
-}
-#h-platform{
-	min-width: 14em;
-}
-#h-other{
-	min-width: 9em;
-}
-#h-info{
-	min-width: 14em;
+	min-width: 11em;
 }
 
 .uid{
 	text-align: right;
 }
 .time{
-	
 	text-align: center;
 }
 .ip{
@@ -86,13 +73,8 @@ body{
 	text-align: right;
 	width: 1.8em;
 }
-.port{
-	text-align: right;
-}
-.moz{
-	text-align: center;
-}
 
-.hide,.chide,.phide{
+
+.hide{
 	display: none;
 }

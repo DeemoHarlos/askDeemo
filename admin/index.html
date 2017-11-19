@@ -1,0 +1,40 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>Visitors - Statistics</title>
+	<link href="index.css" rel="stylesheet"/>
+</head>
+<body>
+	<form class="flex row" action="javascript:update()">
+		<input id="update" type="submit" value="Update"><input id="url" type="text">
+	</form>
+	<div id="check" class="flex row">
+		<div>#</div>
+		<div>IP</div>
+		<div>Time</div>
+		<div>Key</div>
+		<div>Content</div>
+		<div>Answer</div>
+		<div>Answer Time</div>
+		<div>User Agent</div>
+	</div>
+	<div id="table">
+		<table>
+			<tbody class="head">
+				<tr>
+					<th id="h-ip">IP</th>
+					<th id="h-time">Time</th>
+					<th id="h-key">Key</th>
+					<th id="h-content">Content</th>
+					<th id="h-answer">Answer</th>
+					<th id="h-ansTime">Answer Time</th>
+					<th id="h-userAgent">User Agent</th>
+					<th id="h-ansButton">Update</th>
+				</tr>
+			</tbody>
+			<tbody class="content"></tbody>
+		</table>
+	</div>
+	<script src="index.js"></script>
+</body>
+</html>
