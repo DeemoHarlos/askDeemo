@@ -1,5 +1,5 @@
 /*General Function Declaration*/
-function $(a,b){
+function $(a){
 	var e = document.querySelectorAll(a)
 	if (e.length == 1) return e[0]
 	else return e
@@ -74,27 +74,34 @@ function updateAll(){
 			console.log(server + ' responded with status ' + req.status)
 			if(req.status>=200 && req.status<400){
 				data = eval(req.response).reverse()
-				$('#table .content').remove()
-				$('#table>table').append($n('tbody','','content'))
-				var t = $('#table .content')
+				$('#table #content').remove()
+				$('#table>table').append($n('tbody','content'))
+				var t = $('#table #content')
 				var uid = data.length
 				var l = Math.log(10,uid)
 				data.forEach((e,i,a)=>{
-					var tr = $n('tr')
+					var tr = $n('tr','id'+e._id)
 					tr.append($a($n('td',null,'uid'),(''+uid--).padStart(l,'0')))
 					tr.append($a($n('td',null,'ip'),parseIp(e.ip)))
 					tr.append($a($n('td',null,'time'),parseDate(e.time)))
 					tr.append($a($n('td',null,'key'),e.key))
 					tr.append($a($n('td',null,'content'),e.content))
+					
 					var inputBox = input.cloneNode(true);
 					inputBox.value = e.ans||''
-					tr.append($n('td',null,'answer').append(inputBox))
-					tr.append($a($n('td',null,'ansTime'),e.ansTime))
+					var newtd = $n('td',null,'answer')
+					newtd.append(inputBox)
+					tr.append(newtd)
+					
+					tr.append($a($n('td',null,'ansTime'),e.ansTime||'not answered'))
 					tr.append($a($n('td',null,'userAgent'),e.userAgent))
 					var updateButton = update.cloneNode(true);
-					$g(updateButton,'id','e.id')
-					$g(updateButton,'onclick','updateAns()')
-					tr.append($n('td',null,'answer').append(updateButton))
+					//$g(updateButton,'id',e._id)
+					$g(updateButton,'onclick','updateAns(\''+ e._id +'\')')
+
+					newtd = $n('td',null,'ansButton')
+					newtd.append(updateButton)
+					tr.append(newtd)
 					t.append(tr)
 				})
 				for(i in label)if(hidden[i]) toggle(i,false)
@@ -110,3 +117,19 @@ $('#check>*').forEach((e,i,a)=>{
 		e.style.backgroundColor = hidden[i]?'transparent':'#555'
 	})
 })
+
+function updateAns(id){
+	var req = new XMLHttpRequest()
+	var server = 'http://deemo.pw:11520/ans'
+	req.open('POST',server)
+	req.setRequestHeader('Content-Type','application/X-www-form-urlencoded')
+	req.send('id='+id+'&content='+$('#id'+id+' .ansBox').value+'&key='+$('#key').value)
+	req.onreadystatechange = function () {
+		if(req.readyState === XMLHttpRequest.DONE){
+			console.log(server + ' responded with status ' + req.status)
+			$a($('#id'+id+' .ansButton'),'<div><span>'+req.status+'</span></div>');
+			if(req.status>=200 && req.status<400){
+			}
+		}
+	}
+}
