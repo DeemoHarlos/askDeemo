@@ -89,12 +89,12 @@ app.get('/',(req,res)=>{
 		}
 		else {
 			Question.find({key:req.body.key}, function (err, question) {
-				if (err) return res.status(403).send(err)
+				if (err) return res.status(404).send('Not found.')
 				res.status(200).json(question)
 			})
 		}
 	}
-	else return res.status(404).send('Not found.')
+	else return res.status(403).send('Forbidden.')
 })
 
 app.listen(port, ()=>{

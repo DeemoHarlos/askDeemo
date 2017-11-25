@@ -63,9 +63,9 @@ function toggle(i,h){
 	if(h) $('#h-'+label[i]).classList.toggle('hide')
 }
 
-function update(){
+function updateAll(){
 	var req = new XMLHttpRequest()
-	var server = 'http://deemo.pw:11520'
+	var server = 'http://deemo.pw:11520?key=' + $('#key').value
 	req.open('GET',server)
 	req.setRequestHeader('Content-Type','application/X-www-form-urlencoded')
 	req.send()
@@ -102,6 +102,7 @@ function update(){
 		}
 	}
 }
+
 $('#check>*').forEach((e,i,a)=>{
 	clicked(e,()=>{
 		hidden[i] = !hidden[i]
