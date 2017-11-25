@@ -2,6 +2,7 @@
 function $(a){
 	var e = document.querySelectorAll(a)
 	if (e.length == 1) return e[0]
+	else if(e.length == 0)return undefined
 	else return e
 }
 function $n(a,id,cls){
@@ -127,7 +128,9 @@ function updateAns(id){
 	req.onreadystatechange = function () {
 		if(req.readyState === XMLHttpRequest.DONE){
 			console.log(server + ' responded with status ' + req.status)
-			$a($('#id'+id+' .ansButton'),'<div><span>'+req.status+'</span></div>');
+			var stat = $('#id'+id+'>.ansButton>div')
+			if(stat) stat.remove()
+			$a($('#id'+id+'>.ansButton'),'<div><span>'+req.status+'</span></div>');
 			if(req.status>=200 && req.status<400){
 			}
 		}

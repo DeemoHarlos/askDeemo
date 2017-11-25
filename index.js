@@ -73,7 +73,7 @@ app.post('/ans',(req,res)=>{
 	newQuestion.ans = req.body.content
 	newQuestion.ansTime = new Date(Date.now())
 	log.printLog('info',newQuestion)
-	Question.update(req.body.id,{$set: newQuestion}, function (err, question) {
+	Question.update({_id:req.body.id},{$set: newQuestion}, function (err, question) {
 		if (err) return res.status(403).send(err)
 		res.json(question)
 	})
