@@ -65,10 +65,10 @@ function toggle(i,h){
 
 function updateAll(){
 	var req = new XMLHttpRequest()
-	var server = 'http://deemo.pw:11520?key=' + $('#key').value
-	req.open('GET',server)
+	var server = 'http://deemo.pw:11520/get'
+	req.open('POST',server)
 	req.setRequestHeader('Content-Type','application/X-www-form-urlencoded')
-	req.send()
+	req.send('key='+$('#key').value)
 	req.onreadystatechange = function () {
 		if(req.readyState === XMLHttpRequest.DONE){
 			console.log(server + ' responded with status ' + req.status)
