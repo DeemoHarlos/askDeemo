@@ -67,7 +67,7 @@ app.post('/',(req,res)=>{
 app.post('/ans',(req,res)=>{
 	if (!req.body.key || !bcrypt.compareSync(req.body.key,mykey))
 		return res.status(403).send('Forbidden.')
-	var newQuestion = new Question()
+	var newQuestion = {}
 	if(!req.body.id) return res.status(403).send('No question assigned.')
 	if(!req.body.content || !req.body.content.length) return res.status(403).send('No content.')
 	newQuestion.ans = req.body.content
