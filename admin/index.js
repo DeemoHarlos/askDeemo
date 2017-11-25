@@ -1,9 +1,7 @@
 /*General Function Declaration*/
 function $(a){
 	var e = document.querySelectorAll(a)
-	if (e.length == 1) return e[0]
-	else if(e.length == 0)return undefined
-	else return e
+	return e
 }
 function $n(a,id,cls){
 	var e = document.createElement(a)
@@ -61,7 +59,7 @@ $g(update,'value','Update')
 
 function toggle(i,h){
 	$('.'+label[i]).forEach((e,i,a)=>{e.classList.toggle('hide')})
-	if(h) $('#h-'+label[i]).classList.toggle('hide')
+	if(h) $('#h-'+label[i])[0].classList.toggle('hide')
 }
 
 function updateAll(){
@@ -69,15 +67,15 @@ function updateAll(){
 	var server = 'http://deemo.pw:11520/get'
 	req.open('POST',server)
 	req.setRequestHeader('Content-Type','application/X-www-form-urlencoded')
-	req.send('key='+$('#key').value)
+	req.send('key='+$('#key')[0].value)
 	req.onreadystatechange = function () {
 		if(req.readyState === XMLHttpRequest.DONE){
 			console.log(server + ' responded with status ' + req.status)
 			if(req.status>=200 && req.status<400){
 				data = eval(req.response).reverse()
-				$('#table #content').remove()
-				$('#table>table').append($n('tbody','content'))
-				var t = $('#table #content')
+				$('#table #content')[0].remove()
+				$('#table>table')[0].append($n('tbody','content'))
+				var t = $('#table #content')[0]
 				var uid = data.length
 				var l = Math.log(10,uid)
 				data.forEach((e,i,a)=>{
@@ -94,7 +92,7 @@ function updateAll(){
 					newtd.append(inputBox)
 					tr.append(newtd)
 					
-					tr.append($a($n('td',null,'ansTime'),e.ansTime||'not answered'))
+					tr.append($a($n('td',null,'ansTime'),e.ansTime?parseDate(e.ansTime):'not answered'))
 					tr.append($a($n('td',null,'userAgent'),e.userAgent))
 					var updateButton = update.cloneNode(true);
 					//$g(updateButton,'id',e._id)
@@ -124,13 +122,13 @@ function updateAns(id){
 	var server = 'http://deemo.pw:11520/ans'
 	req.open('POST',server)
 	req.setRequestHeader('Content-Type','application/X-www-form-urlencoded')
-	req.send('id='+id+'&content='+$('#id'+id+' .ansBox').value+'&key='+$('#key').value)
+	req.send('id='+id+'&content='+$('#id'+id+' .ansBox')[0].value+'&key='+$('#key')[0].value)
 	req.onreadystatechange = function () {
 		if(req.readyState === XMLHttpRequest.DONE){
 			console.log(server + ' responded with status ' + req.status)
-			var stat = $('#id'+id+'>.ansButton>div')
+			var stat = $('#id'+id+'>.ansButton>div')[0]
 			if(stat) stat.remove()
-			$a($('#id'+id+'>.ansButton'),'<div><span>'+req.status+'</span></div>');
+			$a($('#id'+id+'>.ansButton')[0],'<div><span>'+req.status+'</span></div>');
 			if(req.status>=200 && req.status<400){
 			}
 		}
