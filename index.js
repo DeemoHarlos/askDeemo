@@ -54,7 +54,7 @@ app.post('/',(req,res)=>{
 	newQuestion.key = req.body.key || ''
 	if(req.body.key && bcrypt.compareSync(req.body.key,mykey))
 		return res.status(403).send('Unavailable key.')
-	log.printLog('info',newQuestion)
+	log.printLog('info',newQuestion.stringify())
 	newQuestion.save((err, question)=>{
 		if (err) {
 			log.printLog('error',err)
@@ -72,7 +72,7 @@ app.post('/ans',(req,res)=>{
 	if(!req.body.content || !req.body.content.length) return res.status(403).send('No content.')
 	newQuestion.ans = req.body.content
 	newQuestion.ansTime = new Date(Date.now())
-	log.printLog('info',newQuestion)
+	log.printLog('info',newQuestion.stringify())
 	Question.update({_id:req.body.id},{$set: newQuestion}, function (err, question) {
 		if (err) return res.status(403).send(err)
 		res.json(question)
