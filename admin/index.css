@@ -20,10 +20,13 @@ body{
 
 #update{
 	flex: 0 0 auto;
-	background-color: black;
-	color: white;
 	padding: .5em;
 }
+input,textarea{
+	background-color: black;
+	color: white;
+}
+
 #key{
 	flex: 1 0 0;
 	background-color: black;
