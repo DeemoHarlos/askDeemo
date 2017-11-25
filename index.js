@@ -4,6 +4,7 @@ const app = express()
 const bodyParser = require('body-parser');
 const log = require('./logger')
 const bcrypt = require('bcrypt')
+const url = require('url');
 const port = argv.p || 80
 const database = (argv.d || '127.0.0.1:27017')
 const mykey = '$2a$10$HzFpcQmmIOd9iDiDohCuqOfIEWYFHb9BKZgZsDlovACjy7BaEdfWi'
@@ -44,6 +45,7 @@ app.use((req,res,next)=>{
 })
 
 app.post('/',(req,res)=>{
+	req.body.key = url.parse(req.url, true).query.key;
 	var newQuestion = new Question()
 	if(!req.ip) return res.status(403).send('IP not found.')
 	if(!req.body.content || !req.body.content.length) return res.status(403).send('No content.')
@@ -80,6 +82,7 @@ app.post('/ans',(req,res)=>{
 })
 
 app.get('/',(req,res)=>{
+	var key = url.parse(req.url, true).query.key;
 	if (req.body.key){
 		if (bcrypt.compareSync(req.body.key,mykey)){	
 			Question.find({}, function (err, question) {
