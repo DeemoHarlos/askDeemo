@@ -39,11 +39,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.enable('trust proxy')
 
 app.use((req,res,next)=>{
+	log.listenResEnd(req,res)
+	res.append('Access-Control-Allow-Origin','*')
 	if(recentIP.includes(req.ip))
 		return res.status(403).send('Please try again later.')
 	recentIP.push(req.ip)
-	log.listenResEnd(req,res)
-	res.append('Access-Control-Allow-Origin','*')
 	next()
 })
 
