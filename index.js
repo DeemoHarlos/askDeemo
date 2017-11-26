@@ -84,6 +84,7 @@ app.post('/ans',(req,res)=>{
 })
 
 app.post('/get',(req,res)=>{
+	log.printLog('info','key = ' + req.body.key)
 	if (req.body.key){
 		if (bcrypt.compareSync(req.body.key,mykey)){	
 			Question.find({}, function (err, question) {
