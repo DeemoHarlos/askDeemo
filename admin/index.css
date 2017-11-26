@@ -84,6 +84,9 @@ input,textarea{
 .ansButton{
 	text-align: center;
 }
+.userAgent{
+	max-width: 300px;
+}
 
 .hide{
 	display: none;

@@ -22,6 +22,7 @@ var questionSchema = new Schema({
 	userAgent: {type: String}
 })
 var Question = mongoose.model('Question', questionSchema)
+var recentIP = []
 
 log.printLog('info','Connecting to database ...')
 mongoose.connect(database, function (err, res) {
@@ -38,6 +39,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.enable('trust proxy')
 
 app.use((req,res,next)=>{
+	if(recentIP.includes(req.ip))
+		return res.status(403).send('Please try again later.')
+	recentIP.push(req.ip)
 	log.listenResEnd(req,res)
 	res.append('Access-Control-Allow-Origin','*')
 	next()
@@ -100,3 +104,7 @@ app.post('/get',(req,res)=>{
 app.listen(port, ()=>{
 	log.printLog('info','Listening on port ' + (port+'').cyan)
 })
+
+setInterval(()=>{
+	recentIP = [];
+},3000)
