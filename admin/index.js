@@ -84,7 +84,7 @@ function updateAll(){
 					tr.append($a($n('td',null,'ip'),parseIp(e.ip)))
 					tr.append($a($n('td',null,'time'),parseDate(e.time)))
 					tr.append($a($n('td',null,'key'),e.key))
-					tr.append($a($n('td',null,'content'),e.content))
+					tr.append($a($n('td',null,'content'),e.content.replace(/\n/g,'<br>')))
 					
 					var inputBox = input.cloneNode(true);
 					inputBox.value = e.ans||''
